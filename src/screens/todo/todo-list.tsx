@@ -1,4 +1,4 @@
-import React, { type FC, useCallback } from 'react';
+import React, { type FC, memo, useCallback } from 'react';
 import { AddTodo } from './add-todo';
 import { FlatList, View } from 'react-native';
 import { TodoItem } from './todo-item';
@@ -15,7 +15,7 @@ interface ITodoListProps {
   completed: boolean;
 }
 
-export const TodoList: FC<ITodoListProps> = ({ completed }) => {
+const TodoListComponent: FC<ITodoListProps> = ({ completed }) => {
   const dispatch = useAppDispatch();
   const selectTodo = useCallback(createSelectTodo(completed), [completed]);
   const todos = useSelector(selectTodo);
@@ -49,3 +49,5 @@ export const TodoList: FC<ITodoListProps> = ({ completed }) => {
     </View>
   );
 };
+
+export const TodoList = memo(TodoListComponent);
